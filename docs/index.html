@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Refresh / Content Opportunity Scoring — Hari Om Mishra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17332C;
+    --text: #1A1A1A;
+    --bg: #F5F4F0;
+    --accent: #2E5AA8;
+    --hairline: #D9D6CE;
+    --card: #FFFFFF;
+    --muted: #6B6759;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+
+  .header { display: flex; align-items: center; gap: 18px; margin-bottom: 48px; }
+  .mark {
+    width: 52px; height: 52px; border: 1.5px solid var(--ink); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .mark span { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--ink); }
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 4px;
+  }
+  .byline { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+
+  h1.title {
+    font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px;
+    line-height: 1.1; margin: 0 0 8px; color: var(--ink);
+  }
+
+  section { margin-bottom: 48px; }
+  h2.section-title {
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--hairline);
+  }
+  p { margin: 0 0 14px; font-size: 16px; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+
+  .abstract-card {
+    background: var(--card); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 24px 26px; font-size: 16px;
+  }
+
+  .finding-card {
+    background: var(--ink); color: var(--bg); border-radius: 6px; padding: 26px 28px;
+  }
+  .finding-card p { margin: 0; font-size: 17px; }
+  .finding-card .accent-word { color: #9CB8E8; font-weight: 500; }
+
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14px; margin: 0 0 14px;
+    background: var(--card); border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden;
+  }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--hairline); }
+  th { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-family: 'IBM Plex Mono', monospace; }
+  tr:last-child td { border-bottom: none; }
+  tr.highlight td { background: #EDF2FA; font-weight: 500; }
+
+  .chart-wrap {
+    background: var(--card); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 16px; margin-bottom: 14px;
+  }
+  .chart-wrap img { width: 100%; display: block; border-radius: 4px; }
+  .caption { font-size: 13px; color: var(--muted); margin: 10px 2px 0; }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace; font-size: 13px; background: #EAE8E2;
+    padding: 2px 6px; border-radius: 3px;
+  }
+
+  .limitation-list li { color: var(--text); }
+  .limitation-list li::marker { color: var(--accent); }
+
+  a { color: var(--accent); }
+
+  footer {
+    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hairline);
+    font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .page { padding: 40px 18px 72px; }
+    h1.title { font-size: 30px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="header">
+      <div class="mark"><span>HM</span></div>
+      <div>
+        <p class="kicker">Research Paper — FlyRank ML Capstone</p>
+      </div>
+    </div>
+
+    <h1 class="title">Does a Random Forest Beat a Simple Rule at Ranking Declining Content? A Grouped-Validation Test</h1>
+    <p class="byline">Hari Om Mishra · Refresh / Content Opportunity Scoring lane · August 2026</p>
+
+    <section>
+      <h2 class="section-title">Abstract</h2>
+      <div class="abstract-card">
+        <p style="margin:0;">
+          I asked whether a random forest can rank which content pages will decline in search
+          visibility better than a simple, transparent baseline rule can. Using three months of
+          FlyRank warehouse data as features and the following two months as a genuinely
+          future-observed label, I trained a model and validated it two ways: a naive random
+          row split and an honest split grouped by client. The random split looked strong
+          (0.500 precision@50); the grouped split told a different story (0.300) — below the
+          baseline's 0.320. The 0.200 gap between the two splits was itself the finding: the
+          model was partly memorizing client identity, not learning a real decline signal. I
+          report this as a negative result and recommend the transparent baseline until a
+          model can be shown to beat it under honest validation.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Introduction</h2>
+      <p>
+        A content editor at any given client has limited hours and a growing backlog of pages.
+        The decision this work supports is simple to state and hard to get right: which pages
+        should an editor open first this week? Get it right, and editor time goes toward pages
+        that are actually losing visibility while there's still time to act. Get it wrong, and
+        either a real decline goes unreviewed until it's much harder to reverse, or an editor's
+        limited hours are spent on a page that was never going to move the needle.
+      </p>
+      <p>
+        The question this paper answers: given a page's search performance and engagement
+        signals over a 3-month window, can a model rank which pages will decline over the
+        following 2 months well enough to beat a simple, transparent rule?
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Data</h2>
+      <p>
+        <strong>Release:</strong> FlyRank Internship Warehouse, v20260703 (frozen snapshot,
+        exported 2026-07-03). <strong>Tables:</strong> <code>fact_content_daily_performance</code>
+        (partitioned by month), <code>dim_clients</code>.
+      </p>
+      <p><strong>Windows:</strong></p>
+      <ul>
+        <li>Feature window: December 2025 – February 2026 (22,998,855 rows, 54 clients, 321,546 content items)</li>
+        <li>Label window: March – April 2026 (20,266,108 rows, 61 clients) — strictly after the feature window, so the label is a real future outcome, not a same-window rule</li>
+        <li>The sealed final month (June 2026) was not touched for this analysis</li>
+      </ul>
+      <p>
+        <strong>Excluded:</strong> 26 of 104 clients (25%) have <code>access_profile =
+        'no_search_or_analytics_access'</code> and carry no usable signal; they are excluded
+        from the analysis population entirely, not just from features. All identifiers used
+        throughout (client and content hashes) are pseudonymous, salted hash keys provided by
+        FlyRank — no client names, domains, or URLs appear anywhere in this paper or its
+        underlying notebook.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Methodology</h2>
+      <p><strong>Unit of analysis:</strong> one (client, content item) pair, with features aggregated over the feature window.</p>
+      <p><strong>Features:</strong> average search position, total impressions, total clicks, total AI-referral sessions — all computed strictly within the feature window.</p>
+      <p>
+        <strong>Label:</strong> <code>declined = 1</code> if the label window's monthly-average
+        impressions fell more than 20% below the feature window's monthly-average pace.
+      </p>
+      <p>
+        <strong>Baseline:</strong> a transparent rule — rank pages by feature-window impressions
+        alone, no model involved.
+      </p>
+      <p>
+        <strong>Validation:</strong> two splits, reported side by side. A naive random 70/30 row
+        split, and a <code>GroupKFold</code> split grouped by client — the honest split, since
+        rows from the same client share hidden structure a random split lets a model exploit
+        without actually learning anything general. The gap between the two is treated as a
+        leakage signal, not discarded.
+      </p>
+      <p>
+        <strong>Leakage checks:</strong> the label's own ingredient (label-window impressions)
+        is never used as a feature; every feature is drawn strictly from before the label
+        window; the baseline itself is never used as a model input.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Results</h2>
+      <div class="finding-card">
+        <p>
+          Under honest, client-grouped validation, the model did <span class="accent-word">not</span>
+          beat the baseline — 0.300 vs. 0.320 precision@50.
+        </p>
+      </div>
+      <br/>
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Base rate (share of pairs that declined)</td><td class="num">16.1%</td></tr>
+          <tr><td>Baseline — precision@50</td><td class="num">0.320</td></tr>
+          <tr><td>Model — random split — precision@50</td><td class="num">0.500</td></tr>
+          <tr class="highlight"><td>Model — grouped split — precision@50</td><td class="num">0.300</td></tr>
+          <tr><td>Random vs. grouped gap</td><td class="num">0.200</td></tr>
+        </tbody>
+      </table>
+
+      <div class="chart-wrap">
+        <img src="precision_comparison.png" alt="Bar chart comparing baseline, random-split, and grouped-split precision@50" />
+      </div>
+      <p class="caption">Baseline vs. model, both split types. The gap between the middle and right bars is the real story, not the height of either one alone.</p>
+
+      <p><strong>Feature importances (grouped-split model):</strong></p>
+      <table>
+        <thead><tr><th>Feature</th><th class="num">Importance</th></tr></thead>
+        <tbody>
+          <tr><td>avg_position</td><td class="num">0.549</td></tr>
+          <tr><td>impressions_feat</td><td class="num">0.401</td></tr>
+          <tr><td>clicks_feat</td><td class="num">0.045</td></tr>
+          <tr><td>ai_sessions_feat</td><td class="num">0.005</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Two features account for ~95% of what the model uses, and one of them —
+        impressions — is exactly what the baseline already ranks by directly. That overlap is
+        consistent with the model failing to add value: it had little genuinely new signal to
+        work with.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Limitations &amp; Honest Framing</h2>
+      <ul class="limitation-list">
+        <li>This is a negative result under this specific feature set and label definition, not evidence that "ML doesn't work" for this problem — freshness, content age, and word count were named as intended features but not yet added to the model.</li>
+        <li>The 0.200 random-vs-grouped gap shows real memorization risk in this data; any future iteration must keep using grouped splits.</li>
+        <li>The 20%-decline threshold is one reasonable choice among several; a different threshold could shift results.</li>
+        <li>25% of clients (26 of 104) were excluded for having no search/analytics access — this model says nothing about them.</li>
+        <li>This is a dev-only result. The sealed June 2026 evaluation has not been run, per the project's own rule that it be touched once, at the end, only after the approach stops changing.</li>
+        <li>Nothing here claims causal impact of any refresh action — only an association observed in this window.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">Ranked Recommendations</h2>
+      <p>
+        Until a model can be shown to beat the baseline under honest, grouped validation, the
+        transparent rule is the better tool: rank pages by feature-window impressions, and
+        review the highest-impression, worst-position pages first. That recommendation isn't
+        earned by the model — it's earned by the baseline the model failed to beat, which is
+        exactly why it's worth stating plainly rather than dressing the model result up as a
+        win.
+      </p>
+      <p><strong>Next steps, in order of expected value:</strong></p>
+      <ul>
+        <li>Add the freshness/content-age/word-count features named in the methodology but never implemented</li>
+        <li>Re-run grouped validation with the expanded feature set before touching the sealed month</li>
+        <li>Only spend the one sealed June 2026 evaluation once the grouped-split result actually beats baseline in dev</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">Reproducibility</h2>
+      <p>
+        Full notebook history for this capstone, including every query and the exact code that
+        produced every number above, is in this repository:
+        <a href="https://github.com/flyrank-bih/flyrank-ml-internship-starter/blob/main/work/notebooks/capstone.ipynb">work/notebooks/capstone.ipynb</a>.
+        Weekly framing notebooks (<code>w01</code>–<code>w03</code>) that built up to this lane
+        are in the same <code>work/notebooks/</code> folder.
+      </p>
+    </section>
+
+    <footer>
+      Built on the FlyRank ML Internship dataset —
+      <a href="https://flyrank.ai" target="_blank" rel="noopener">flyrank.ai</a>.
+      No client names, domains, URLs, or private queries appear in this paper or its underlying
+      notebook; all identifiers are pseudonymous hash keys provided by FlyRank.
+    </footer>
+
+  </div>
+</body>
+</html>
